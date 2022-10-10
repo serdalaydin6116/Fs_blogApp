@@ -79,3 +79,5 @@ class RegisterSerializer(serializers.ModelSerializer):
         class Meta(TokenSerializer.Meta):
             fields = ('key', 'user')
 
+    
+
