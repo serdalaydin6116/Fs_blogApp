@@ -1,5 +1,9 @@
 from rest_framework import serializers, validators
 from django.contrib.auth.models import User
+from .models import Profile
+from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.hashers import make_password
+from dj_rest_auth.serializers import TokenSerializer
 
 
 
@@ -9,6 +13,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         required=True,
         validators=[validators.UniqueValidator(queryset=User.objects.all())]
     )
+
+     ##forms.py version 
+     #(we can handle this by overwriting and checking the uniqueness of the emails that were entered ın the afore-mentioned codes)
+    # def clean_email(self):
+    #     email = self.cleaned_data['email']
+    #     if User.objects.filter(email=email).exists():
+    #         raise forms.ValidationError("Please use another Email, that one already taken")
+    #     return email
+   
 
     password = serializers.CharField(
         write_only=True,
