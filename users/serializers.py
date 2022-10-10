@@ -71,3 +71,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
             fields = ('id', 'email', 'first_name', 'last_name')
+
+    class CustomTokenSerializer(TokenSerializer):
+
+        user = UserTokenSerializer(read_only=True)
+
+        class Meta(TokenSerializer.Meta):
+            fields = ('key', 'user')
+
