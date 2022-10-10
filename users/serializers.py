@@ -66,3 +66,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {"password": "The Passwords you entered do not match with each other..."})
         return data
+
+    class UserTokenSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('id', 'email', 'first_name', 'last_name')
