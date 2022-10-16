@@ -67,17 +67,27 @@ class RegisterSerializer(serializers.ModelSerializer):
                 {"password": "The Passwords you entered do not match with each other..."})
         return data
 
-    class UserTokenSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = User
-            fields = ('id', 'email', 'first_name', 'last_name')
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields=(
 
-    class CustomTokenSerializer(TokenSerializer):
+            'username',
+            'email',
+        )
+    
+class UserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name')
 
-        user = UserTokenSerializer(read_only=True)
+class CustomTokenSerializer(TokenSerializer):
 
-        class Meta(TokenSerializer.Meta):
-            fields = ('key', 'user')
+    user = UserSerializer(read_only=True)
+
+    class Meta(TokenSerializer.Meta):
+        fields = ('key', 'user')
 
     
 
